@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private int score = 0;
 
     private bool isWalking;
     private bool isJumping;
@@ -39,8 +40,13 @@ public class PlayerScript : MonoBehaviour
         }
 
         isJumping = false;
-        print(inputVector.x);
-        print(inputVector.y);
+
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        // Get the food's value and add it to our score -> placeholder is 1pt
+        score += 1;
+        // if we reach a certain size category, update to bigger or smaller model
     }
 
     public bool IsWalking() {
