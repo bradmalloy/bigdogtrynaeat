@@ -748,6 +748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 384101586}
   _inputManager: {fileID: 1435296874}
+  thePlayer: {fileID: 0}
 --- !u!4 &1308710781
 Transform:
   m_ObjectHideFlags: 0
