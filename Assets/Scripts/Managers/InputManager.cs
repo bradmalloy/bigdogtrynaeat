@@ -61,6 +61,12 @@ public sealed class InputManager : MonoBehaviour
             Debug.Log(rightKey);
         }
 
+        if (Input.GetKey(jumpKey))
+        {
+            direction += Vector3.up;
+            Debug.Log("He jump");
+        }
+
         bool jump = Input.GetKey(jumpKey);
 
         Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), 0); // Only horizontal rotation
