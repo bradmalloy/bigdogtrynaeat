@@ -73,3 +73,4 @@ crashlytics-build.properties
 
 # Ignore Rider folder
 /[Aa]ssets/[Ss]cripts/.idea
+.vsconfig
