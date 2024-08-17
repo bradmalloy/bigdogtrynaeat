@@ -16,9 +16,13 @@ public class GameManager : MonoBehaviour
 
     private void StartUp()
     {
-        _uiManager = UiManager.Instance;
+        // SpawnDog creates the Player instance, which
+        // many other Managers need as a reference
         SpawnDog();
+        _uiManager = UiManager.Instance;
         _inputManager = InputManager.Instance;
+        // Now that the Player exists, give it to InputManager
+        //_inputManager.SetPlayer(null);
     }
 
     private void SpawnDog()
