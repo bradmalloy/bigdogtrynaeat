@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         // Attach the camera rig to the player so it will follow
         mainCameraRig.transform.SetParent(thePlayer.transform);
         mainCameraRig.SetPlayer(thePlayer);
+        thePlayer.GetComponent<PlayerScript>().Init(mainCameraRig.transform);
     }
 
     private void SpawnFood(Vector3 spawnLocation, int prefabIndex) {

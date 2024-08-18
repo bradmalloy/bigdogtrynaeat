@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private int score = 0;
     [SerializeField] private AudioSource goodFoodSound;
     [SerializeField] private AudioSource badFoodSound;
     [SerializeField] private Transform cameraTransform;
+    private Rigidbody rb;
 
     private bool isWalking;
     private bool isJumping;
@@ -39,35 +41,34 @@ public class PlayerScript : MonoBehaviour
         right.y = 0f;    // Keep the right vector horizontal
         forward.Normalize();
         right.Normalize();
-
+        
         Vector3 desiredMoveDirection = forward * direction.z + right * direction.x;
         desiredMoveDirection.Normalize();
+        
+        // Rotate the player to face the direction of movement
+        if (desiredMoveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(desiredMoveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
 
         // Move the player
-        controller.Move(desiredMoveDirection * moveSpeed * Time.deltaTime);
-
-        // Check if the player is grounded
-        isGrounded = controller.isGrounded;
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = 0f;
-        }
-
-        // Handle jumping
-        if (isGrounded && isJumping)
-        {
-            velocity.y += Mathf.Sqrt(jumpForce * -2f * gravity);
-        }
-
-        // Apply gravity
-        velocity.y += gravity * Time.deltaTime;
-
-        // Apply the vertical velocity
-        controller.Move(velocity * Time.deltaTime);
+        Vector3 move = desiredMoveDirection * moveSpeed * Time.deltaTime;
+        rb.MovePosition(rb.position + move);
     }
     
     private void Update() {
         
+    }
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public void Init(Transform cameraRig)
+    {
+        cameraTransform = cameraRig;
     }
 
     private void OnCollisionEnter(Collision collision) {

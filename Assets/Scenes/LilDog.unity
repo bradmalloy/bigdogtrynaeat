@@ -427,7 +427,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -454,11 +454,11 @@ Transform:
   m_GameObject: {fileID: 483718274}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30054054, y: -0, z: -0, w: 0.9537691}
-  m_LocalPosition: {x: 0, y: 6.568, z: -12.098}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 506208602}
   m_LocalEulerAnglesHint: {x: 34.98, y: 0, z: 0}
 --- !u!114 &483718278
 MonoBehaviour:
@@ -504,6 +504,55 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &506208600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 506208602}
+  - component: {fileID: 506208601}
+  m_Layer: 0
+  m_Name: CameraRig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &506208601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506208600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0270d42c35b40b98a22787e9a90703f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  distance: 1.7
+  height: 1.2
+  sensitivity: 2
+--- !u!4 &506208602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506208600}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 6.568, z: -12.098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 483718277}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &541741954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1607,7 +1656,7 @@ MonoBehaviour:
   lilDogPrefab: {fileID: 5386596385486521972, guid: 4606bc957b5c2c44ca595c0efccb319e,
     type: 3}
   dynamicSpawnLoc: {fileID: 218300559}
-  mainCamera: {fileID: 483718276}
+  mainCameraRig: {fileID: 506208601}
   thePlayer: {fileID: 0}
   foodPrefabList:
   - {fileID: 8425343291804000428, guid: bfd3d36bc5e295043a60433129f2e23d, type: 3}
@@ -1704,6 +1753,7 @@ MonoBehaviour:
   leftKey: 97
   rightKey: 100
   jumpKey: 32
+  barkKey: 101
 --- !u!1 &1445950092
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +2350,6 @@ SceneRoots:
   - {fileID: 1075635168}
   - {fileID: 804377287}
   - {fileID: 2047738446}
-  - {fileID: 483718277}
+  - {fileID: 506208602}
   - {fileID: 1691297408}
   - {fileID: 2006835440}

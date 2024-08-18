@@ -3,8 +3,8 @@
 public class CameraRig : MonoBehaviour
 {
     public Transform player;  // The player transform
-    public float distance = 5.0f;  // Distance from the player
-    public float height = 3.0f;  // Height above the player
+    public float distance = 2.0f;  // Distance from the player
+    public float height = 1.0f;  // Height above the player
     public float sensitivity = 2.0f;  // Mouse sensitivity for orbiting
 
     private float currentX = 0f;
