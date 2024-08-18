@@ -34,15 +34,19 @@ public class PlayerScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) {
         // Get the food's value and add it to our score -> placeholder is 1pt
-        score += 1;
+        
         // if we reach a certain size category, update to bigger or smaller model
         if (collision.collider.gameObject.CompareTag("Good Food")) {
             goodFoodSound.Play();
+            score += collision.collider.gameObject.GetComponent<FoodScript>().score;
         } 
         else if (collision.collider.gameObject.CompareTag("Bad Food")) { 
-            badFoodSound.Play(); 
+            badFoodSound.Play();
+            score -= collision.collider.gameObject.GetComponent<FoodScript>().score;
         }
+        print(score);
     }
+
 
     public bool IsWalking() {
         return isWalking;
