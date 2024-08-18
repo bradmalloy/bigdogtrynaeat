@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 5186976619176587240}
   - component: {fileID: 2162716621552256669}
   - component: {fileID: 1164204302021591526}
-  - component: {fileID: 8782437282474642914}
   - component: {fileID: 349583065573733182}
   - component: {fileID: 6481139906048722918}
   - component: {fileID: 2596777664591513211}
   - component: {fileID: 5049446482223241281}
   - component: {fileID: 1268757777151639294}
   - component: {fileID: 4487875706397915088}
+  - component: {fileID: -455927457334616393}
   m_Layer: 0
   m_Name: LilDog
   m_TagString: Player
@@ -91,29 +91,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8782437282474642914
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5386596385486521972}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Height: 0.65
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.2, z: -0.1}
 --- !u!114 &349583065573733182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,6 +411,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &-455927457334616393
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5386596385486521972}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.24950355, y: 0.49922067, z: 0.5666144}
+  m_Center: {x: 0.002175672, y: 0.23747781, z: -0.1390221}
 --- !u!1001 &7349452164073286551
 PrefabInstance:
   m_ObjectHideFlags: 0

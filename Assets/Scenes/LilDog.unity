@@ -1607,8 +1607,7 @@ MonoBehaviour:
   lilDogPrefab: {fileID: 5386596385486521972, guid: 4606bc957b5c2c44ca595c0efccb319e,
     type: 3}
   dynamicSpawnLoc: {fileID: 218300559}
-  wallSpawnLoc: {fileID: 1789366581}
-  floorSpawnLoc: {fileID: 0}
+  mainCamera: {fileID: 483718276}
   thePlayer: {fileID: 0}
   foodPrefabList:
   - {fileID: 8425343291804000428, guid: bfd3d36bc5e295043a60433129f2e23d, type: 3}

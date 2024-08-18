@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject lilDogPrefab;
     [SerializeField] private GameObject dynamicSpawnLoc;
-    [SerializeField] private GameObject wallSpawnLoc;
-    [SerializeField] private GameObject floorSpawnLoc;
+    
+    // Track the camera so that we can move it around during gameplay
+    // Attach it to the dog during play, show the house in menus, etc
+    [SerializeField] private Camera mainCamera;
 
     // This is serializable only for debug purposes, generated
     // at runtime.
@@ -57,7 +59,12 @@ public class GameManager : MonoBehaviour
     private void SpawnDog()
     {
         print("Creatin that dawg");
+        // First spawn an instance of the player's model and PlayerScript
         thePlayer = Instantiate(lilDogPrefab, new Vector3(0, 0, 0), Quaternion.identity, dynamicSpawnLoc.transform);
+        // Next, attach the camera behind the dog
+        // and position it
+        mainCamera.gameObject.transform.SetParent(thePlayer.transform);
+        mainCamera.gameObject.transform.localPosition = new Vector3(0, 1, -2);
     }
 
     private void SpawnFood(Vector3 spawnLocation, int prefabIndex) {
