@@ -11,7 +11,8 @@ public sealed class InputManager : MonoBehaviour
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode barkKey = KeyCode.E;
 
-    private bool isEnabled = false;
+    // The inverse of this is when we're in a menu
+    private bool gameIsActive = false;
 
     private PlayerScript thePlayer;
 
@@ -23,7 +24,7 @@ public sealed class InputManager : MonoBehaviour
         if (thePlayer != null)
         {
             Debug.Log("Looks good.");
-            isEnabled = true;
+            gameIsActive = true;
         }
         else
         {
@@ -42,7 +43,7 @@ public sealed class InputManager : MonoBehaviour
     
     private void Update()
     {
-        if (isEnabled)
+        if (gameIsActive)
         {
             Vector3 direction = Vector3.zero;
 
@@ -93,6 +94,6 @@ public sealed class InputManager : MonoBehaviour
 
     public void ToggleEnabled()
     {
-        isEnabled = !isEnabled;
+        gameIsActive = !gameIsActive;
     }
 }
