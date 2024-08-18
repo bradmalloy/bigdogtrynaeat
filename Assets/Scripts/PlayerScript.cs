@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int score = 0;
     [SerializeField] private AudioSource goodFoodSound;
     [SerializeField] private AudioSource badFoodSound;
+    [SerializeField] private AudioSource jumpSound;
     [SerializeField] private Transform cameraTransform;
     private Rigidbody rb;
 

@@ -10,6 +10,9 @@ public sealed class InputManager : MonoBehaviour
     [SerializeField] private KeyCode rightKey = KeyCode.D;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode barkKey = KeyCode.E;
+    [SerializeField] private AudioSource barkSound;
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioClip barkClip;
 
     // The inverse of this is when we're in a menu
     private bool gameIsActive = false;
@@ -76,16 +79,16 @@ public sealed class InputManager : MonoBehaviour
 
             if (Input.GetKey(barkKey))
             {
-                // TODO: play bark sound
+                barkSound.Play();
                 Debug.Log("He bark");
             }
 
             bool jump = Input.GetKey(jumpKey);
             if (jump)
             {
-                // TODO: play jump sound
+                jumpSound.Play();
             }
-
+ 
             Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), 0); // Only horizontal rotation
 
             thePlayer.Move(direction, jump, mouseDelta);
