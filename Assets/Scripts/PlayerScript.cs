@@ -8,24 +8,62 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int score = 0;
     [SerializeField] private AudioSource goodFoodSound;
     [SerializeField] private AudioSource badFoodSound;
+    [SerializeField] private Transform cameraTransform;
 
     private bool isWalking;
     private bool isJumping;
 
     public void Move(Vector3 direction, bool isJumping, Vector2 mouseDelta)
     {
-        Vector3 inputVector = new Vector3(0, 0, 0);
-        inputVector = direction.normalized;
-        Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, inputVector.z);
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
+        // Vector3 inputVector = new Vector3(0, 0, 0);
+        // inputVector = direction.normalized;
+        // Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, inputVector.z);
+        // transform.position += moveDir * moveSpeed * Time.deltaTime;
+        //
+        // isWalking = moveDir != Vector3.zero;
+        // if (!isJumping) {
+        //     float rotateSpeed = 10f;
+        //     transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        // }
+        //
+        // isJumping = false;
         
-        isWalking = moveDir != Vector3.zero;
-        if (!isJumping) {
-            float rotateSpeed = 10f;
-            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
+        // Handle the camera rotation based on mouse input
+        float mouseX = mouseDelta.x;
+        transform.Rotate(Vector3.up * mouseX);
+
+        // Adjust the direction relative to the camera's forward direction
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+        forward.y = 0f;  // Keep the forward vector horizontal
+        right.y = 0f;    // Keep the right vector horizontal
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 desiredMoveDirection = forward * direction.z + right * direction.x;
+        desiredMoveDirection.Normalize();
+
+        // Move the player
+        controller.Move(desiredMoveDirection * moveSpeed * Time.deltaTime);
+
+        // Check if the player is grounded
+        isGrounded = controller.isGrounded;
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = 0f;
         }
 
-        isJumping = false;
+        // Handle jumping
+        if (isGrounded && isJumping)
+        {
+            velocity.y += Mathf.Sqrt(jumpForce * -2f * gravity);
+        }
+
+        // Apply gravity
+        velocity.y += gravity * Time.deltaTime;
+
+        // Apply the vertical velocity
+        controller.Move(velocity * Time.deltaTime);
     }
     
     private void Update() {
