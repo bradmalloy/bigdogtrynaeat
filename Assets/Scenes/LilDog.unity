@@ -560,6 +560,8 @@ MonoBehaviour:
   wallSpawnLoc: {fileID: 1789366581}
   floorSpawnLoc: {fileID: 1817456832}
   thePlayer: {fileID: 0}
+  foodPrefabList:
+  - {fileID: 8425343291804000428, guid: bfd3d36bc5e295043a60433129f2e23d, type: 3}
   gameScore: 0
   menuKey: 27
 --- !u!1 &1435296872
