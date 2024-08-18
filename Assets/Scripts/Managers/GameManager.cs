@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
         SpawnFood(new Vector3(3, 0, 0), 0);
 
         _uiManager.Init(gameTimer);
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void SetUpTimer()
