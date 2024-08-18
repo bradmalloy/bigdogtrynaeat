@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     // This is serializable only for debug purposes, generated
     // at runtime.
     [SerializeField] private GameObject thePlayer;
+    [SerializeField] private List<GameObject> foodPrefabList;
 
     [SerializeField] private int gameScore;
     [SerializeField] private System.Timers.Timer gameTimer;
@@ -35,12 +36,20 @@ public class GameManager : MonoBehaviour
         // Now that the Player exists, give it to InputManager
         // and have it start up
         _inputManager.Init(thePlayer.GetComponent<PlayerScript>());
+        SpawnFood(new Vector3(0, 0, 3), 0);
+        SpawnFood(new Vector3(3, 0, 0), 1);
+
     }
 
     private void SpawnDog()
     {
         print("Creatin that dawg");
         thePlayer = Instantiate(lilDogPrefab, new Vector3(0, 0, 0), Quaternion.identity, dynamicSpawnLoc.transform);
+    }
+
+    private void SpawnFood(Vector3 spawnLocation, int prefabIndex) {
+        print("Making a snack");
+        Instantiate(foodPrefabList[prefabIndex], spawnLocation, Quaternion.identity, dynamicSpawnLoc.transform);
     }
 
     // Update is called once per frame

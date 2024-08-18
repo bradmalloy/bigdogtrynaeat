@@ -6,6 +6,8 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private int score = 0;
+    [SerializeField] private AudioSource goodFoodSound;
+    [SerializeField] private AudioSource badFoodSound;
 
     private bool isWalking;
     private bool isJumping;
@@ -34,6 +36,12 @@ public class PlayerScript : MonoBehaviour
         // Get the food's value and add it to our score -> placeholder is 1pt
         score += 1;
         // if we reach a certain size category, update to bigger or smaller model
+        if (collision.collider.gameObject.CompareTag("Good Food")) {
+            goodFoodSound.Play();
+        } 
+        else if (collision.collider.gameObject.CompareTag("Bad Food")) { 
+            badFoodSound.Play(); 
+        }
     }
 
     public bool IsWalking() {
