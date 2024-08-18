@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         _inputManager.Init(thePlayer.GetComponent<PlayerScript>());
         SpawnFood(new Vector3(0, 0, 3), 0);
-        SpawnFood(new Vector3(3, 0, 0), 1);
+        SpawnFood(new Vector3(3, 0, 0), 0);
 
         _uiManager.Init(gameTimer);
     }
