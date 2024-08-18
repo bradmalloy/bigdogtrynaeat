@@ -6,30 +6,20 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float jumpForce = 0.5f;
     [SerializeField] private int score = 0;
     [SerializeField] private AudioSource goodFoodSound;
     [SerializeField] private AudioSource badFoodSound;
     [SerializeField] private Transform cameraTransform;
+    
     private Rigidbody rb;
+    public LayerMask jumpableLayerMask; // Layer mask to filter objects
 
     private bool isWalking;
     private bool isJumping;
 
     public void Move(Vector3 direction, bool isJumping, Vector2 mouseDelta)
     {
-        // Vector3 inputVector = new Vector3(0, 0, 0);
-        // inputVector = direction.normalized;
-        // Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, inputVector.z);
-        // transform.position += moveDir * moveSpeed * Time.deltaTime;
-        //
-        // isWalking = moveDir != Vector3.zero;
-        // if (!isJumping) {
-        //     float rotateSpeed = 10f;
-        //     transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
-        // }
-        //
-        // isJumping = false;
-        
         // Handle the camera rotation based on mouse input
         float mouseX = mouseDelta.x;
         transform.Rotate(Vector3.up * mouseX);
@@ -55,6 +45,13 @@ public class PlayerScript : MonoBehaviour
         // Move the player
         Vector3 move = desiredMoveDirection * moveSpeed * Time.deltaTime;
         rb.MovePosition(rb.position + move);
+        
+        // If we're inputting a jump, make the player jump
+        // Handle jumping
+        if (isJumping && isGrounded())
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
     
     private void Update() {
@@ -93,6 +90,33 @@ public class PlayerScript : MonoBehaviour
 
     public bool IsJumping() { 
         return isJumping; 
+    }
+
+    private bool isGrounded()
+    {
+        Vector3 boxCenter = transform.position;
+        
+        Vector3 boxHalfExtents = transform.localScale / 2f;
+        
+        Collider[] colliders = Physics.OverlapBox(boxCenter, boxHalfExtents, Quaternion.identity);
+        
+        // Check if any of the colliders have the tag "IsJumpable"
+        bool isTouchingJumpable = false;
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("IsJumpable"))
+            {
+                isTouchingJumpable = true;
+                break;
+            }
+        }
+        
+        if (isTouchingJumpable)
+        {
+            return true;
+        }
+
+        return false;
     }
     
 }
