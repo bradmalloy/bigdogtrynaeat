@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Timers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> foodPrefabList;
 
     [SerializeField] private int gameScore;
-    [SerializeField] private System.Timers.Timer gameTimer;
+    [SerializeField] private Timer gameTimer;
+    [SerializeField] private KeyCode menuKey = KeyCode.Escape;
 
     // Start is called before the first frame update
     void Start()
@@ -35,10 +37,21 @@ public class GameManager : MonoBehaviour
         SpawnDog();
         // Now that the Player exists, give it to InputManager
         // and have it start up
+        SetUpTimer();
+
         _inputManager.Init(thePlayer.GetComponent<PlayerScript>());
         SpawnFood(new Vector3(0, 0, 3), 0);
         SpawnFood(new Vector3(3, 0, 0), 1);
 
+        _uiManager.Init(gameTimer);
+    }
+
+    private void SetUpTimer()
+    {
+        gameTimer = new Timer(60000);
+        gameTimer.Elapsed += EndGame;
+        gameTimer.AutoReset = false;
+        gameTimer.Enabled = true;
     }
 
     private void SpawnDog()
@@ -55,6 +68,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(menuKey))
+        {
+            _inputManager.ToggleEnabled();
+            _uiManager.ToggleEnabled();
+        }
     }
+
+    private static void EndGame(System.Object source, ElapsedEventArgs e) {
+        print("Head to the endgame screen");
+        //THis need to show the endgame scoring and then display the menu.
+    }
+
+
 }
