@@ -2552,10 +2552,14 @@ MonoBehaviour:
   lilDogPrefab: {fileID: 5386596385486521972, guid: 4606bc957b5c2c44ca595c0efccb319e,
     type: 3}
   dynamicSpawnLoc: {fileID: 218300559}
-  mainCameraRig: {fileID: 506208601}
-  thePlayer: {fileID: 0}
+  totalFoodSpawnFill: 0.7
+  percentBadFood: 0.2
   foodPrefabList:
   - {fileID: 8425343291804000428, guid: bfd3d36bc5e295043a60433129f2e23d, type: 3}
+  - {fileID: 8425343291804000428, guid: 3f66c9d371ebcce4fab0b77b8a2e942f, type: 3}
+  foodSpawnLocationsParent: {fileID: 1062048744}
+  mainCameraRig: {fileID: 506208601}
+  thePlayer: {fileID: 0}
   gameScore: 0
   menuKey: 27
 --- !u!65 &1318558648
