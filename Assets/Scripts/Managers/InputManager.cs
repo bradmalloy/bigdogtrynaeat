@@ -9,6 +9,7 @@ public sealed class InputManager : MonoBehaviour
     [SerializeField] private KeyCode leftKey = KeyCode.A;
     [SerializeField] private KeyCode rightKey = KeyCode.D;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode barkKey = KeyCode.E;
 
     private bool isEnabled = false;
 
@@ -72,7 +73,17 @@ public sealed class InputManager : MonoBehaviour
                 Debug.Log("He jump");
             }
 
+            if (Input.GetKey(barkKey))
+            {
+                // TODO: play bark sound
+                Debug.Log("He bark");
+            }
+
             bool jump = Input.GetKey(jumpKey);
+            if (jump)
+            {
+                // TODO: play jump sound
+            }
 
             Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), 0); // Only horizontal rotation
 
