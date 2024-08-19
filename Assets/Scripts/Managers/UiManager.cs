@@ -49,7 +49,7 @@ public sealed class UiManager : MonoBehaviour
         {
             timerText.text = gameTimer.GetRemainingTime();
             scoreText.text = "Score: " + gameManager.GetPlayer().GetScore();
-            targetScoreText.text = "Next: " + "??";
+            targetScoreText.text = "Next: " + gameManager.GetPlayer().GetNextScoreTarget();
         }
     }
 }
