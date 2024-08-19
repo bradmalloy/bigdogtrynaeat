@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdc95d2be1162a428a1da861cca2b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
+  moveSpeed: 16
   rotationSpeed: 10
   jumpForce: 0.5
   score: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   badFoodSound: {fileID: 4487875706397915088}
   cameraTransform: {fileID: 0}
   scoreTargets: 0100000002000000030000000400000005000000
-  acceleration: 17
+  acceleration: 20
 --- !u!108 &6481139906048722918
 Light:
   m_ObjectHideFlags: 0

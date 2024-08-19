@@ -1590,7 +1590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiTree: {fileID: 1843716101}
-  uiTimer: {fileID: 1459363876}
+  timerText: {fileID: 1459363878}
+  scoreText: {fileID: 569911906}
+  targetScoreText: {fileID: 1805714009}
 --- !u!64 &405618849
 MeshCollider:
   m_ObjectHideFlags: 0

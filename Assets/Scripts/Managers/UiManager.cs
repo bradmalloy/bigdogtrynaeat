@@ -1,31 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
 using TMPro;
 using UnityEngine;
 
 public sealed class UiManager : MonoBehaviour
 {
-    [SerializeField] private GameTimer gameTimer;
-    [SerializeField] private GameObject uiTree;
-    [SerializeField] private GameObject uiTimer;
-    private bool IsInit;
+    // Where we get data
+    private GameTimer gameTimer;
+    private GameManager gameManager;
 
+    // Turn this on or off
+    [SerializeField] private GameObject uiTree;
+    
+    // Text fields
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI targetScoreText;
+    
+    private bool IsInit;
     private bool isEnabled;
 
-    public void Init(GameTimer timer)
+    public void Init(GameTimer timer, GameManager theBoss)
     {
-        Debug.Log("UiManager starting up, assigning timer.");
+        Debug.Log("UiManager starting up, assigning timer and game manager");
         gameTimer = timer;
+        gameManager = theBoss;
 
-        if (gameTimer != null)
+        if (gameTimer != null && gameManager != null)
         {
-            Debug.Log("Looks good.");
+            Debug.Log("Timer and manager provided, UIManager starting.");
             IsInit = true;
         }
         else
         {
-            Debug.LogError("Uh oh, no GARBAGIO was provided?");
+            Debug.LogError("Timer or manager wasn't provided, can't start UIManager");
         }
 
     }
@@ -41,10 +47,9 @@ public sealed class UiManager : MonoBehaviour
     {
         if (IsInit)
         {
-            Debug.Log("Timer object" + uiTimer.name);
-            TextMeshProUGUI textmesh = uiTimer.GetComponent<TextMeshProUGUI>();
-            Debug.Log("Mesh object" + textmesh.name);
-            textmesh.text = gameTimer.GetRemainingTime();
+            timerText.text = gameTimer.GetRemainingTime();
+            scoreText.text = "Score: " + gameManager.GetPlayer().GetScore();
+            targetScoreText.text = "Next: " + "??";
         }
     }
 }

@@ -60,9 +60,9 @@ public class PlayerScript : MonoBehaviour
 
         // Move the player
         Vector3 move = desiredMoveDirection * moveSpeed * Time.deltaTime;
-        directionMovingIn = move;
-        //rb.MovePosition(rb.position + move);
-        
+        directionMovingIn = move; // This will set the direction we WANT to move in,
+        // and Update() will actually move the player (with acceleration and decel)
+
         // If we're inputting a jump, make the player jump
         // Handle jumping
         if (isJumping && isGrounded())
@@ -140,6 +140,21 @@ public class PlayerScript : MonoBehaviour
         transform.localScale /= scaleFactor;
     }
 
+    public string GetScore()
+    {
+        return "" + score;
+    }
+
+    public string GetNextScoreTarget()
+    {
+        int nextTarget = FindNextTarget(scoreTargets, score);
+        if (nextTarget == -1)
+        {
+            return "Win!";
+        }
+        return "" + nextTarget;
+    }
+
     public bool IsWalking() {
         return isWalking;
     }
@@ -175,4 +190,19 @@ public class PlayerScript : MonoBehaviour
         return false;
     }
     
+    int FindNextTarget(int[] scoreTargets, int score)
+    {
+        int nextTarget = int.MaxValue;
+
+        foreach (int target in scoreTargets)
+        {
+            if (target > score && target < nextTarget)
+            {
+                nextTarget = target;
+            }
+        }
+
+        return nextTarget == int.MaxValue ? -1 : nextTarget; // Return -1 if no higher target is found
+    }
+
 }

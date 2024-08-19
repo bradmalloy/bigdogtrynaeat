@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     // This is serializable only for debug purposes, generated
     // at runtime.
-    [SerializeField] private GameObject thePlayer;
+    [SerializeField] public GameObject thePlayer;
 
     [SerializeField] private int gameScore;
     private GameTimer gameTimer;
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
         // Other misc start-game tasks
         SetUpTimer(); // must happen before UI init
-        _uiManager.Init(gameTimer);
+        _uiManager.Init(gameTimer, this);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -145,5 +145,10 @@ public class GameManager : MonoBehaviour
     private static void EndGame() {
         print("Head to the endgame screen");
         //THis need to show the endgame scoring and then display the menu.
+    }
+
+    public PlayerScript GetPlayer()
+    {
+        return thePlayer.GetComponent<PlayerScript>();
     }
 }
