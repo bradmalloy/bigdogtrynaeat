@@ -4356,7 +4356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 384101586}
   _inputManager: {fileID: 1435296874}
-  lilDogPrefab: {fileID: 5386596385486521972, guid: 4606bc957b5c2c44ca595c0efccb319e,
+  lilDogPrefab: {fileID: 5386596385486521972, guid: 8631c0bd104311d48a4beb09daadbb5d,
     type: 3}
   dogSpawnLocations:
   - {fileID: 155391550}

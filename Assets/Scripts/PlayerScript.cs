@@ -14,7 +14,8 @@ public class PlayerScript : MonoBehaviour
     
     [SerializeField] private const float scaleFactor = 1.25f; // 25% scale factor
     [SerializeField] private int[] scoreTargets;
-    
+
+    private Animator animObj;
     private Rigidbody rb;
 
     private bool isWalking;
@@ -22,6 +23,15 @@ public class PlayerScript : MonoBehaviour
 
     public void Move(Vector3 direction, bool isJumping, Vector2 mouseDelta)
     {
+
+        if (direction != Vector3.zero)
+        {
+            animObj.SetBool("isWalking", true);
+        }
+        else {
+            animObj.SetBool("isWalking", false);
+        }
+
         // Handle the camera rotation based on mouse input
         float mouseX = mouseDelta.x;
         transform.Rotate(Vector3.up * mouseX);
@@ -63,6 +73,7 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animObj = GetComponentInChildren<Animator>();
     }
 
     public void Init(Transform cameraRig)
