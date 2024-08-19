@@ -81,3 +81,5 @@ crashlytics-build.properties
 # Ignore some 3rd party assets
 Assets/Feel
 Assets/Modern UI Pack
+
+Build/
