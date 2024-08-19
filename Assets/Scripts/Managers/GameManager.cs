@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject thePlayer;
 
     [SerializeField] private int gameScore;
-    [SerializeField] private GameTimer gameTimer;
+    private GameTimer gameTimer;
     [SerializeField] private KeyCode menuKey = KeyCode.Escape;
 
     // Start is called before the first frame update
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     private void SetUpTimer()
     {
-        gameTimer = new GameTimer(60, EndGame);
+        gameTimer = new GameTimer(180, EndGame);
     }
 
     private void SpawnDog()
@@ -132,12 +132,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        string thing = gameTimer.ToString();
-        print(thing);
         if (Input.GetKeyDown(menuKey))
         {
             _inputManager.ToggleEnabled();
             _uiManager.ToggleEnabled();
+            gameTimer.TogglePause();
         }
     }
 
