@@ -6,7 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotationSpeed = 10f;
-    [SerializeField] private float jumpForce = 0.5f;
+    [SerializeField] private float jumpForce = 10f;
     [SerializeField] private int score = 0;
     [SerializeField] private AudioSource goodFoodSound;
     [SerializeField] private AudioSource badFoodSound;
@@ -18,6 +18,11 @@ public class PlayerScript : MonoBehaviour
     private Vector3 directionMovingIn;
     public float acceleration = 5f; // Adjust the acceleration rate
     private Vector3 currentVelocity = Vector3.zero;
+    public float fallMultiplier = 2.5f; // Multiplier to increase gravity during fall
+    public float lowJumpMultiplier = 2f; // Multiplier for shorter, quicker jumps
+    public float jumpCooldownTime = 0.1f; // Grace period in seconds
+    private float lastLandTime = 0f; // Tracks the last time the player jumped
+    private bool canJump = true; // Indicates if the player can jump
     
     private Animator animObj;
     private Rigidbody rb;
@@ -25,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     private bool isWalking;
     private bool isJumping;
 
-    public void Move(Vector3 direction, bool isJumping, Vector2 mouseDelta)
+    public void Move(Vector3 direction, bool isJumpInput, Vector2 mouseDelta)
     {
 
         if (direction != Vector3.zero)
@@ -65,28 +70,64 @@ public class PlayerScript : MonoBehaviour
 
         // If we're inputting a jump, make the player jump
         // Handle jumping
-        if (isJumping && isGrounded())
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+        isJumping = isJumpInput;
     }
     
     private void Update() {
-        // Calculate the target velocity
-        Vector3 targetVelocity = directionMovingIn * moveSpeed;
+        // Calculate the target horizontal velocity (ignoring vertical movement)
+        Vector3 targetHorizontalVelocity = directionMovingIn * moveSpeed;
 
-        // Smoothly interpolate the current velocity towards the target velocity
-        currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, acceleration * Time.deltaTime);
+        // Smoothly interpolate the current horizontal velocity towards the target velocity
+        Vector3 horizontalVelocity = Vector3.Lerp(new Vector3(currentVelocity.x, 0, currentVelocity.z), 
+            targetHorizontalVelocity, 
+            acceleration * Time.deltaTime);
 
-        // Apply the movement to the player
+        // Preserve the current vertical velocity (y component)
+        currentVelocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
+
+        // Apply the movement to the player (horizontal only)
         Vector3 move = currentVelocity * Time.deltaTime;
         rb.MovePosition(rb.position + move);
+    
+        // Check if the player has landed and reset the jump ability after the cooldown
+        if (isGrounded())
+        {
+            if (Time.time - lastLandTime > jumpCooldownTime)
+            {
+                canJump = true;
+            }
+        }
+        else
+        {
+            lastLandTime = Time.time; // Update the last land time when in the air
+        }
+        
+        // Handle jumping
+        if (isJumping && isGrounded() && canJump)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // Reset any vertical velocity before jumping
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canJump = false; // Record the time of the last jump
+        }
+
+        // Apply extra gravity when falling for a more satisfying jump
+        if (rb.velocity.y < 0) 
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        // Apply extra gravity if the player releases the jump button early
+        else if (rb.velocity.y > 0 && !isJumping) 
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         animObj = GetComponentInChildren<Animator>();
+        // Freeze rotation on the X and Z axes to keep the player upright
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     public void Init(Transform cameraRig)
