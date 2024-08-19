@@ -72,12 +72,12 @@ public class PlayerScript : MonoBehaviour
         // If we're inputting a jump, make the player jump
         // Handle jumping
         isJumping = isJumpInput;
+        animObj.SetBool("isJumping", isJumpInput);
     }
     
     private void FixedUpdate()
     {
         //Handle IdleTime animation activation
-        Debug.Log("This is the current Idle Timer " + (lastIdleTimeMark - gameTimer.GetRemainingSeconds()));
         animObj.SetInteger("SitTimer", lastIdleTimeMark - gameTimer.GetRemainingSeconds());
 
         // Calculate the target horizontal velocity (ignoring vertical movement)
