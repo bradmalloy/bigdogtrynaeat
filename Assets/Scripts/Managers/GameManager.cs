@@ -161,6 +161,11 @@ public class GameManager : MonoBehaviour
         return thePlayer.GetComponent<PlayerScript>();
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
     public enum FoodType
     {
         Good,

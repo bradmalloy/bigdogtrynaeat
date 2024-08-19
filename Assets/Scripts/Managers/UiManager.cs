@@ -40,6 +40,15 @@ public sealed class UiManager : MonoBehaviour
     {
         isEnabled = !isEnabled;
         uiTree.SetActive(isEnabled);
+        if (isEnabled)
+        {
+            Cursor.lockState = CursorLockMode.None;    
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        
     }
 
     // Update is called once per frame

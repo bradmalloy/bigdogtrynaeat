@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float moveSpeed = 16f;
     [SerializeField] private float rotationSpeed = 10f;
-    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float jumpForce = 3f;
     [SerializeField] private int score = 0;
     [SerializeField] private AudioSource goodFoodSound;
     [SerializeField] private AudioSource badFoodSound;
@@ -120,56 +120,6 @@ public class PlayerScript : MonoBehaviour
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
     }
-
-    
-    // private void Update() {
-    //     // Calculate the target horizontal velocity (ignoring vertical movement)
-    //     Vector3 targetHorizontalVelocity = directionMovingIn * moveSpeed;
-    //
-    //     // Smoothly interpolate the current horizontal velocity towards the target velocity
-    //     Vector3 horizontalVelocity = Vector3.Lerp(new Vector3(currentVelocity.x, 0, currentVelocity.z), 
-    //         targetHorizontalVelocity, 
-    //         acceleration * Time.deltaTime);
-    //
-    //     // Preserve the current vertical velocity (y component)
-    //     currentVelocity = new Vector3(horizontalVelocity.x, rb.velocity.y, horizontalVelocity.z);
-    //
-    //     // Apply the movement to the player (horizontal only)
-    //     Vector3 move = currentVelocity * Time.fixedDeltaTime;
-    //     rb.MovePosition(rb.position + move);
-    //
-    //     // Check if the player has landed and reset the jump ability after the cooldown
-    //     if (isGrounded())
-    //     {
-    //         if (Time.time - lastLandTime > jumpCooldownTime)
-    //         {
-    //             canJump = true;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         lastLandTime = Time.time; // Update the last land time when in the air
-    //     }
-    //     
-    //     // Handle jumping
-    //     if (isJumping && isGrounded() && canJump)
-    //     {
-    //         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z); // Reset any vertical velocity before jumping
-    //         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    //         canJump = false; // Record the time of the last jump
-    //     }
-    //
-    //     // Apply extra gravity when falling for a more satisfying jump
-    //     if (rb.velocity.y < 0) 
-    //     {
-    //         rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-    //     }
-    //     // Apply extra gravity if the player releases the jump button early
-    //     else if (rb.velocity.y > 0 && !isJumping) 
-    //     {
-    //         rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-    //     }
-    // }
 
     private void Start()
     {
