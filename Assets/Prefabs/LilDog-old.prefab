@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 4487875706397915088}
   - component: {fileID: -455927457334616393}
   m_Layer: 0
-  m_Name: LilDog
+  m_Name: LilDog-old
   m_TagString: Player
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

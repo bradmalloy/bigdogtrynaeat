@@ -15,6 +15,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private const float scaleFactor = 1.25f; // 25% scale factor
     [SerializeField] private int[] scoreTargets;
 
+    private Vector3 directionMovingIn;
+    public float acceleration = 5f; // Adjust the acceleration rate
+    private Vector3 currentVelocity = Vector3.zero;
+    
     private Animator animObj;
     private Rigidbody rb;
 
@@ -56,7 +60,8 @@ public class PlayerScript : MonoBehaviour
 
         // Move the player
         Vector3 move = desiredMoveDirection * moveSpeed * Time.deltaTime;
-        rb.MovePosition(rb.position + move);
+        directionMovingIn = move;
+        //rb.MovePosition(rb.position + move);
         
         // If we're inputting a jump, make the player jump
         // Handle jumping
@@ -67,7 +72,15 @@ public class PlayerScript : MonoBehaviour
     }
     
     private void Update() {
-        
+        // Calculate the target velocity
+        Vector3 targetVelocity = directionMovingIn * moveSpeed;
+
+        // Smoothly interpolate the current velocity towards the target velocity
+        currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, acceleration * Time.deltaTime);
+
+        // Apply the movement to the player
+        Vector3 move = currentVelocity * Time.deltaTime;
+        rb.MovePosition(rb.position + move);
     }
 
     private void Start()
