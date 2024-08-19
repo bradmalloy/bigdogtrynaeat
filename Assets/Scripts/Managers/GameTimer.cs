@@ -51,7 +51,7 @@ public class GameTimer
         if (seconds < 10)
         {
             sec = "0" + seconds;
-            return "00:" + sec;
+            return "" + mins + ":" + sec;
         }
 
         return "" + mins + ":" + seconds;
