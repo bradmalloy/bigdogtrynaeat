@@ -12,8 +12,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private AudioSource badFoodSound;
     [SerializeField] private Transform cameraTransform;
     
+    [SerializeField] private const float scaleFactor = 1.25f; // 25% scale factor
+    [SerializeField] private int[] scoreTargets;
+    
     private Rigidbody rb;
-    public LayerMask jumpableLayerMask; // Layer mask to filter objects
 
     private bool isWalking;
     private bool isJumping;
@@ -74,15 +76,45 @@ public class PlayerScript : MonoBehaviour
         // if we reach a certain size category, update to bigger or smaller model
         if (collision.collider.gameObject.CompareTag("Good Food")) {
             goodFoodSound.Play();
-            score += collision.collider.gameObject.GetComponent<FoodScript>().score;
+            ChangeScore(collision.collider.gameObject.GetComponent<FoodScript>().score);
         } 
         else if (collision.collider.gameObject.CompareTag("Bad Food")) { 
             badFoodSound.Play();
-            score -= collision.collider.gameObject.GetComponent<FoodScript>().score;
+            // Food scores are currently always positive, even for bad food
+            ChangeScore(collision.collider.gameObject.GetComponent<FoodScript>().score * -1);
         }
-        print(score);
     }
 
+    // Change the stored score value and check if we need to change his size
+    private void ChangeScore(int pointsToChange)
+    {
+        int previousScore = score;
+        int newScore = score + pointsToChange;
+        score = newScore;
+
+        foreach (int target in scoreTargets)
+        {
+            if (previousScore <= target && newScore > target)
+            {
+                IncreaseSize();
+            } else if (previousScore > target && newScore <= target)
+            {
+                DecreaseSize();
+            }
+        }
+    }
+
+    // Method to increase the size of the parent GameObject by 25%
+    public void IncreaseSize()
+    {
+        transform.localScale *= scaleFactor;
+    }
+
+    // Method to decrease the size of the parent GameObject by 25%
+    public void DecreaseSize()
+    {
+        transform.localScale /= scaleFactor;
+    }
 
     public bool IsWalking() {
         return isWalking;
