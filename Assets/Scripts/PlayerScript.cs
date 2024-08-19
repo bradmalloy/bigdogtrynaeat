@@ -23,6 +23,8 @@ public class PlayerScript : MonoBehaviour
     private bool canJump = true; // Indicates if the player can jump
     
     private Animator animObj;
+    private GameTimer gameTimer;
+    private int lastIdleTimeMark = 180;
     private Rigidbody rb;
 
     private bool isWalking;
@@ -34,6 +36,7 @@ public class PlayerScript : MonoBehaviour
         if (direction != Vector3.zero)
         {
             animObj.SetBool("isWalking", true);
+            lastIdleTimeMark = gameTimer.GetRemainingSeconds();
         }
         else {
             animObj.SetBool("isWalking", false);
@@ -73,6 +76,10 @@ public class PlayerScript : MonoBehaviour
     
     private void FixedUpdate()
     {
+        //Handle IdleTime animation activation
+        Debug.Log("This is the current Idle Timer " + (lastIdleTimeMark - gameTimer.GetRemainingSeconds()));
+        animObj.SetInteger("SitTimer", lastIdleTimeMark - gameTimer.GetRemainingSeconds());
+
         // Calculate the target horizontal velocity (ignoring vertical movement)
         Vector3 targetHorizontalVelocity = directionMovingIn * moveSpeed;
 
@@ -129,9 +136,10 @@ public class PlayerScript : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    public void Init(Transform cameraRig)
+    public void Init(Transform cameraRig, GameTimer timer)
     {
         cameraTransform = cameraRig;
+        gameTimer = timer;
     }
 
     private void OnCollisionEnter(Collision collision) {

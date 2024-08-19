@@ -6,11 +6,13 @@ public class GameTimer
 {
     private Timer timer;
     private int remainingSeconds;
+    private int startingSeconds;
     private readonly Action callback;
     private bool paused = false;
 
     public GameTimer(int seconds, Action EndGame)
     {
+        startingSeconds = seconds;
         remainingSeconds = seconds;
         callback = EndGame;
         // The Timer will trigger every 1000 milliseconds, 
@@ -55,6 +57,15 @@ public class GameTimer
         }
 
         return "" + mins + ":" + seconds;
+    }
+
+    public int GetElapsedSeconds()
+    {
+        return startingSeconds - remainingSeconds;
+    }
+
+    public int GetRemainingSeconds() {
+        return remainingSeconds;
     }
 
 }

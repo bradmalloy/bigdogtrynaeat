@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void StartUp()
     {
+        SetUpTimer(); // must happen before UI init, dog init
         // SpawnDog creates the Player instance, which
         // many other Managers need as a reference
         SpawnDog();
@@ -52,7 +53,6 @@ public class GameManager : MonoBehaviour
         SpawnAllFood();
 
         // Other misc start-game tasks
-        SetUpTimer(); // must happen before UI init
         _uiManager.Init(gameTimer, this);
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         // Attach the camera rig to the player so it will follow
         mainCameraRig.transform.SetParent(thePlayer.transform);
         mainCameraRig.SetPlayer(thePlayer);
-        thePlayer.GetComponent<PlayerScript>().Init(mainCameraRig.transform);
+        thePlayer.GetComponent<PlayerScript>().Init(mainCameraRig.transform, gameTimer);
     }
 
     private void SpawnAllFood()
