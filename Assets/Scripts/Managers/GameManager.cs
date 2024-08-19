@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private InputManager _inputManager;
 
     [SerializeField] private GameObject lilDogPrefab;
-    [SerializeField] private GameObject dynamicSpawnLoc;
+    [SerializeField] private List<GameObject> dogSpawnLocations;
 
     // Food spawning variables
     [SerializeField] private float totalFoodSpawnFill = 0.5f;
@@ -67,7 +67,9 @@ public class GameManager : MonoBehaviour
     {
         print("Creatin that dawg");
         // First spawn an instance of the player's model and PlayerScript
-        thePlayer = Instantiate(lilDogPrefab, new Vector3(0, 0, 0), Quaternion.identity, dynamicSpawnLoc.transform);
+        var randomIndex = Random.Range(0, dogSpawnLocations.Count);
+        var spawnLocation = dogSpawnLocations[randomIndex];
+        thePlayer = Instantiate(lilDogPrefab, spawnLocation.transform.position, Quaternion.identity, gameObject.transform);
         // Attach the camera rig to the player so it will follow
         mainCameraRig.transform.SetParent(thePlayer.transform);
         mainCameraRig.SetPlayer(thePlayer);
@@ -126,7 +128,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnFood(Vector3 spawnLocation, int prefabIndex) {
         print("Making a snack");
-        Instantiate(foodPrefabList[prefabIndex], spawnLocation, Quaternion.identity, dynamicSpawnLoc.transform);
+        Instantiate(foodPrefabList[prefabIndex], spawnLocation, Quaternion.identity);
     }
 
     // Update is called once per frame

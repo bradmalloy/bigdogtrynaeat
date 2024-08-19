@@ -74,3 +74,7 @@ crashlytics-build.properties
 # Ignore Rider folder
 /[Aa]ssets/[Ss]cripts/.idea
 .vsconfig
+
+# Ignore some 3rd party assets
+Assets/Feel
+Assets/Modern UI Pack
