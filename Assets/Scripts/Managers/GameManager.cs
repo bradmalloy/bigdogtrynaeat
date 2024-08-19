@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject thePlayer;
 
     [SerializeField] private int gameScore;
-    [SerializeField] private Timer gameTimer;
+    [SerializeField] private GameTimer gameTimer;
     [SerializeField] private KeyCode menuKey = KeyCode.Escape;
 
     // Start is called before the first frame update
@@ -60,10 +60,7 @@ public class GameManager : MonoBehaviour
 
     private void SetUpTimer()
     {
-        gameTimer = new Timer(60000);
-        gameTimer.Elapsed += EndGame;
-        gameTimer.AutoReset = false;
-        gameTimer.Enabled = true;
+        gameTimer = new GameTimer(60, EndGame);
     }
 
     private void SpawnDog()
@@ -135,6 +132,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        string thing = gameTimer.ToString();
+        print(thing);
         if (Input.GetKeyDown(menuKey))
         {
             _inputManager.ToggleEnabled();
@@ -142,7 +141,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private static void EndGame(System.Object source, ElapsedEventArgs e) {
+    private static void EndGame() {
         print("Head to the endgame screen");
         //THis need to show the endgame scoring and then display the menu.
     }
