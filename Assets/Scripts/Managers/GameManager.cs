@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     // Food spawning variables
     [SerializeField] private float totalFoodSpawnFill = 0.5f;
     [SerializeField] private float percentBadFood = 0.3f;
-    [SerializeField] private List<GameObject> foodPrefabList;
+    [SerializeField] private List<GameObject> goodFoodPrefabList;
+    [SerializeField] private List<GameObject> badFoodPrefabList;
     [SerializeField] private GameObject foodSpawnLocationsParent;
     
     // Track the camera so that we can move it around during gameplay
@@ -113,22 +114,32 @@ public class GameManager : MonoBehaviour
 
             if (spawnGoodFood && goodFoodCounter < maxGoodFoodSpawns)
             {
-                SpawnFood(location.position, 0);
+                SpawnFood(location.position, FoodType.Good);
                 Debug.Log("Spawning good food at " + location.gameObject.name);
                 goodFoodCounter++;
             }
             else if (!spawnGoodFood && badFoodCounter < maxBadFoodSpawns)
             {
-                SpawnFood(location.position, 1);
+                SpawnFood(location.position, FoodType.Bad);
                 Debug.Log("Spawning bad food at " + location.gameObject.name);
                 badFoodCounter++;
             }
         }
     }
 
-    private void SpawnFood(Vector3 spawnLocation, int prefabIndex) {
-        print("Making a snack");
-        Instantiate(foodPrefabList[prefabIndex], spawnLocation, Quaternion.identity);
+    private void SpawnFood(Vector3 spawnLocation, FoodType foodType) {
+        if (foodType == FoodType.Good)
+        {
+            print("Making a good snack");
+            int randomIndex = UnityEngine.Random.Range(0, goodFoodPrefabList.Count);
+            Instantiate(goodFoodPrefabList[randomIndex], spawnLocation, Quaternion.identity);
+        }
+        else
+        {
+            print("Making a baaaaaad snack");
+            int randomIndex = UnityEngine.Random.Range(0, badFoodPrefabList.Count);
+            Instantiate(badFoodPrefabList[randomIndex], spawnLocation, Quaternion.identity);
+        }
     }
 
     // Update is called once per frame
@@ -150,5 +161,11 @@ public class GameManager : MonoBehaviour
     public PlayerScript GetPlayer()
     {
         return thePlayer.GetComponent<PlayerScript>();
+    }
+
+    public enum FoodType
+    {
+        Good,
+        Bad
     }
 }

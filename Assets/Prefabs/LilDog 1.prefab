@@ -105,15 +105,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 16
   rotationSpeed: 10
-  jumpForce: 2.5
+  jumpForce: 3
   score: 0
   goodFoodSound: {fileID: 1268757777151639294}
   badFoodSound: {fileID: 4487875706397915088}
   cameraTransform: {fileID: 0}
   scoreTargets: 03000000050000000a0000001900000028000000
   acceleration: 20
-  fallMultiplier: 2.5
+  fallMultiplier: 3
   lowJumpMultiplier: 2
+  jumpCooldownTime: 0.1
 --- !u!108 &6481139906048722918
 Light:
   m_ObjectHideFlags: 0

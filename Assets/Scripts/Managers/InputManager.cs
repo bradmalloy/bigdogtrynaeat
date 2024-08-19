@@ -53,28 +53,23 @@ public sealed class InputManager : MonoBehaviour
             if (Input.GetKey(forwardKey))
             {
                 direction += Vector3.forward;
-                Debug.Log(forwardKey);
             }
             if (Input.GetKey(backwardKey))
             {
                 direction += Vector3.back;
-                Debug.Log(backwardKey);
             }
             if (Input.GetKey(leftKey))
             {
                 direction += Vector3.left;
-                Debug.Log(leftKey);
             }
             if (Input.GetKey(rightKey))
             {
                 direction += Vector3.right;
-                Debug.Log(rightKey);
             }
 
             if (Input.GetKey(jumpKey))
             {
                 direction += Vector3.up;
-                Debug.Log("He jump");
             }
 
             if (Input.GetKey(barkKey))
