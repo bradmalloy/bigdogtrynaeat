@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     
     // Activate this at the end of game
     [SerializeField] private GameObject endGameCameraSpot;
+    [SerializeField] private AudioSource victoryMusic;
 
     // This is serializable only for debug purposes, generated
     // at runtime.
@@ -187,6 +188,7 @@ public class GameManager : MonoBehaviour
         }
 
         mainCameraRig.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+        victoryMusic.Play();
     }
 
     public PlayerScript GetPlayer()
