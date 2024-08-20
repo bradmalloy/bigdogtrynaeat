@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraRig : MonoBehaviour
 {
@@ -10,14 +11,21 @@ public class CameraRig : MonoBehaviour
     private float currentX = 0f;
     private float currentY = 0f;
 
+    [FormerlySerializedAs("enabled")] public bool cameraIsEnabled = true;
+
     public void SetPlayer(GameObject toSet)
     {
         player = toSet.transform;
     }
+
+    public void DisableCameraControl()
+    {
+        cameraIsEnabled = false;
+    }
     
     void Update()
     {
-        if (player == null)
+        if (player == null || cameraIsEnabled == false)
         {
             return;
         }
@@ -32,7 +40,7 @@ public class CameraRig : MonoBehaviour
 
     void LateUpdate()
     {
-        if (player == null)
+        if (player == null || cameraIsEnabled == false)
         {
             return;
         }

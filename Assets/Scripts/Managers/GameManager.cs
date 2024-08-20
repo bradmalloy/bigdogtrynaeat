@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     // These are set in the Unity editor beforehand
     [SerializeField] private UiManager _uiManager;
     [SerializeField] private InputManager _inputManager;
+
+    [SerializeField] private int gameTimeInSeconds = 10;
 
     [SerializeField] private GameObject lilDogPrefab;
     [SerializeField] private List<GameObject> dogSpawnLocations;
@@ -23,6 +26,9 @@ public class GameManager : MonoBehaviour
     // Track the camera so that we can move it around during gameplay
     // Attach it to the dog during play, show the house in menus, etc
     [SerializeField] private CameraRig mainCameraRig;
+    
+    // Activate this at the end of game
+    [SerializeField] private GameObject endGameCameraSpot;
 
     // This is serializable only for debug purposes, generated
     // at runtime.
@@ -58,11 +64,14 @@ public class GameManager : MonoBehaviour
 
         // disable start menu
         _uiManager.HideStartMenu();
+
+        gameTimer.StartTimer();
     }
 
     private void SetUpTimer()
     {
-        gameTimer = new GameTimer(180, EndGame);
+        gameTimer = this.AddComponent<GameTimer>();
+        gameTimer.Init(gameTimeInSeconds, this);
     }
 
     private void SpawnDog()
@@ -154,9 +163,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private static void EndGame() {
-        print("Head to the endgame screen");
-        //THis need to show the endgame scoring and then display the menu.
+    public void EndGame() {
+        Debug.Log("EndGame has been called, moving to 2nd camera.");
+        // Move the camera
+        mainCameraRig.DisableCameraControl();
+        Debug.Log("Camera rig enabled state: " + mainCameraRig.cameraIsEnabled);
+        if (mainCameraRig != null && endGameCameraSpot != null)
+        {
+            Debug.Log("Camera References are valid.");
+            endGameCameraSpot.SetActive(true);
+            mainCameraRig.gameObject.SetActive(true);
+            mainCameraRig.gameObject.transform.SetParent(endGameCameraSpot.transform);
+            
+            mainCameraRig.gameObject.transform.localPosition = Vector3.zero;
+            mainCameraRig.gameObject.transform.localRotation = Quaternion.identity;
+            
+            mainCameraRig.gameObject.GetComponentInChildren<Camera>().gameObject.transform.localPosition = Vector3.zero;
+            mainCameraRig.gameObject.GetComponentInChildren<Camera>().gameObject.transform.localRotation = Quaternion.identity;
+        }
+        else
+        {
+            Debug.LogError("mainCameraRig or endGameCameraSpot is null.");
+        }
+
+        mainCameraRig.gameObject.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     public PlayerScript GetPlayer()

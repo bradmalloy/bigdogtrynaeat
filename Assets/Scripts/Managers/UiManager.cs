@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -35,15 +36,6 @@ public sealed class UiManager : MonoBehaviour
         {
             Debug.LogError("Timer or manager wasn't provided, can't start UIManager");
         }
-
-        // Ensure we can't see the pause menu at the start
-        if (pauseMenu.activeInHierarchy)
-        {
-            pauseMenu.SetActive(false);
-        }
-        
-        // and that we _can_ see the start menu
-        startMenu.SetActive(true);
     }
 
     public void ToggleEnabled()
@@ -75,5 +67,17 @@ public sealed class UiManager : MonoBehaviour
             scoreText.text = "Score: " + gameManager.GetPlayer().GetScore();
             targetScoreText.text = "Goal: " + gameManager.GetPlayer().GetNextScoreTarget();
         }
+    }
+
+    private void Start()
+    {
+        // Ensure we can't see the pause menu at the start
+        if (pauseMenu.activeInHierarchy)
+        {
+            pauseMenu.SetActive(false);
+        }
+        
+        // and that we _can_ see the start menu
+        startMenu.SetActive(true);
     }
 }

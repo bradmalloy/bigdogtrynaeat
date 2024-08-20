@@ -1,62 +1,70 @@
-using System;
-using System.Timers;
+using System.Collections;
 using UnityEngine;
 
-public class GameTimer
+public class GameTimer : MonoBehaviour
 {
-    private Timer timer;
     private int remainingSeconds;
     private int startingSeconds;
-    private readonly Action callback;
     private bool paused = false;
+    private GameManager manager;
+    private Coroutine timerCoroutine;
 
-    public GameTimer(int seconds, Action EndGame)
+    public void Init(int secondsDuration, GameManager theBoss)
     {
-        startingSeconds = seconds;
-        remainingSeconds = seconds;
-        callback = EndGame;
-        // The Timer will trigger every 1000 milliseconds, 
-        // not a _duration_ of 1000 milliseconds
-        timer = new Timer(1000);
-        timer.Elapsed += resetTimer;
-        timer.AutoReset = true;
-        timer.Enabled = true;
+        startingSeconds = secondsDuration;
+        remainingSeconds = secondsDuration;
+        manager = theBoss;
+    }
+
+    public void StartTimer()
+    {
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+        }
+        timerCoroutine = StartCoroutine(TimerCoroutine());
     }
 
     public void TogglePause()
     {
         Debug.Log("Pausing/unpausing the timer.");
         paused = !paused;
-        if (paused) { timer.Stop(); }
-        else { timer.Start(); }
+
+        if (paused && timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+        }
+        else if (!paused && timerCoroutine == null)
+        {
+            timerCoroutine = StartCoroutine(TimerCoroutine());
+        }
     }
 
-    void resetTimer(System.Object source, ElapsedEventArgs e)
+    private IEnumerator TimerCoroutine()
     {
-        if (remainingSeconds > 0)
+        while (remainingSeconds > 0)
         {
-            remainingSeconds--;
-        }
-        else
-        {
-            timer.Enabled = false;
-            callback();
-        }
+            yield return new WaitForSeconds(1f);
 
+            if (!paused)
+            {
+                remainingSeconds--;
+
+                if (remainingSeconds <= 0)
+                {
+                    Debug.Log("The timer is over! Time to call EndGame.");
+                    manager.EndGame();
+                }
+            }
+        }
     }
 
     public string GetRemainingTime()
     {
         int mins = remainingSeconds / 60;
         int seconds = remainingSeconds % 60;
-        string sec = "" + seconds;
-        if (seconds < 10)
-        {
-            sec = "0" + seconds;
-            return "" + mins + ":" + sec;
-        }
-
-        return "" + mins + ":" + seconds;
+        string sec = seconds < 10 ? "0" + seconds : "" + seconds;
+        return "" + mins + ":" + sec;
     }
 
     public int GetElapsedSeconds()
@@ -64,8 +72,8 @@ public class GameTimer
         return startingSeconds - remainingSeconds;
     }
 
-    public int GetRemainingSeconds() {
+    public int GetRemainingSeconds()
+    {
         return remainingSeconds;
     }
-
 }
