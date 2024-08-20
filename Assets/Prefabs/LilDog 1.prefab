@@ -503,6 +503,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dog_Idle (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8375332341852703633, guid: 3129a6e2df5ced74eb8a1fefa85d968f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ecc2a35b3bf761844bdd7f13d55c886e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
