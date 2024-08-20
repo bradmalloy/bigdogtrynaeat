@@ -9,7 +9,8 @@ public sealed class UiManager : MonoBehaviour
 
     // Turn this on or off
     [SerializeField] private GameObject uiTree;
-    
+    [SerializeField] private GameObject startMenu;
+
     // Text fields
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -42,13 +43,18 @@ public sealed class UiManager : MonoBehaviour
         uiTree.SetActive(isEnabled);
         if (isEnabled)
         {
-            Cursor.lockState = CursorLockMode.None;    
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
         
+    }
+
+    public void HideStartMenu()
+    {
+        startMenu.SetActive(false);
     }
 
     // Update is called once per frame
