@@ -194,9 +194,9 @@ public class PlayerScript : MonoBehaviour
         transform.localScale /= scaleFactor;
     }
 
-    public string GetScore()
+    public int GetScore()
     {
-        return "" + score;
+        return score;
     }
 
     public string GetNextScoreTarget()

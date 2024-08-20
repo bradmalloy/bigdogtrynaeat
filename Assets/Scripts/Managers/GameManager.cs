@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
     // This is serializable only for debug purposes, generated
     // at runtime.
     [SerializeField] public GameObject thePlayer;
+    [SerializeField] public GameObject finalDog;
+    [SerializeField] public GameObject scale;
 
     [SerializeField] private int gameScore;
     private GameTimer gameTimer;
@@ -192,7 +194,18 @@ public class GameManager : MonoBehaviour
             Debug.LogError("mainCameraRig or endGameCameraSpot is null.");
         }
 
+        bool isGoodEnding = false;
+        if (thePlayer.GetComponent<PlayerScript>().GetScore() > 10) {
+            isGoodEnding = true;
+        }
+
         mainCameraRig.gameObject.transform.localPosition = new Vector3(0, 0, 0);
+        finalDog.SetActive(true);
+        Animator dogAnim =finalDog.GetComponentInChildren<Animator>();
+        dogAnim.SetBool("isGoodEnding", isGoodEnding);
+        dogAnim.SetBool("isGameOver", true);
+        Animator scaleAnim = scale.GetComponentInChildren<Animator>();
+        dogAnim.SetBool("isGoodEnding", scaleAnim);
         victoryMusic.Play();
     }
 
