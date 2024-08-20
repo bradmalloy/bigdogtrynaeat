@@ -163,6 +163,11 @@ public class PlayerScript : MonoBehaviour
         Debug.Log("Changing score by: " + pointsToChange);
         int previousScore = score;
         int newScore = score + pointsToChange;
+        if (newScore < 0)
+        {
+            // no negative scores for doggo
+            newScore = 0;
+        }
         score = newScore;
 
         foreach (int target in scoreTargets)
@@ -226,7 +231,31 @@ public class PlayerScript : MonoBehaviour
         {
             if (collider.CompareTag("IsJumpable"))
             {
+                // attempt to get the top of each collider to determine if you are on top of the object to jump
+                /*
+                //get the extents
+                var yHalfExtents = collider.bounds.extents.y;
+                //get the center
+                var yCenter = collider.bounds.center.y;
+                //get the up border
+                float yUpper = transform.position.y + (yCenter + yHalfExtents);
+                //get the lower border
+                float yLower = transform.position.y + (yCenter - yHalfExtents);
+                Debug.Log("wall? Upper border: " + yUpper);
+                Debug.Log("wall? Lower border: " + yLower);
+                float dyUpper = boxCenter.y + (boxCenter.y + boxHalfExtents.y);
+                float dyLower = boxCenter.y + (boxCenter.y - boxHalfExtents.y);
+                Debug.Log("dog? Upper border: " + dyUpper);
+                Debug.Log("dog? Lower border: " + dyLower);
+
+                if (dyUpper >= yUpper)
+                {
+                    isTouchingJumpable = true;
+                }
+                */
+
                 isTouchingJumpable = true;
+
                 break;
             }
         }
