@@ -35,11 +35,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartUp();
+        
     }
 
-    private void StartUp()
+    public void StartUp()
     {
+
         SetUpTimer(); // must happen before UI init, dog init
         // SpawnDog creates the Player instance, which
         // many other Managers need as a reference
@@ -55,6 +56,9 @@ public class GameManager : MonoBehaviour
         // Other misc start-game tasks
         _uiManager.Init(gameTimer, this);
         Cursor.lockState = CursorLockMode.Locked;
+
+        // disable start menu
+        _uiManager.HideStartMenu();
     }
 
     private void SetUpTimer()
