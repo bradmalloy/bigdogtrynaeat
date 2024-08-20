@@ -18487,7 +18487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 384101586}
   _inputManager: {fileID: 1435296874}
-  gameTimeInSeconds: 3
+  gameTimeInSeconds: 120
   lilDogPrefab: {fileID: 5386596385486521972, guid: 8631c0bd104311d48a4beb09daadbb5d,
     type: 3}
   dogSpawnLocations:
