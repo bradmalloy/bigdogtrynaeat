@@ -8,12 +8,16 @@ public sealed class InputManager : MonoBehaviour
     [SerializeField] private KeyCode rightKey = KeyCode.D;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode barkKey = KeyCode.E;
+    [SerializeField] private KeyCode muteKey = KeyCode.M;
     [SerializeField] private AudioSource barkSound;
     [SerializeField] private AudioSource jumpSound;
     [SerializeField] private AudioClip barkClip;
 
     // The inverse of this is when we're in a menu
     private bool gameIsActive = false;
+
+    // control muting and unmuting
+    private bool isMuted = false;
 
     private PlayerScript thePlayer;
 
@@ -70,6 +74,11 @@ public sealed class InputManager : MonoBehaviour
                 direction += Vector3.up;
             }
 
+            if (Input.GetKey(muteKey))
+            {
+                MuteToggle();
+            }
+
             if (Input.GetKey(barkKey))
             {
                 barkSound.Play();
@@ -91,5 +100,18 @@ public sealed class InputManager : MonoBehaviour
     public void ToggleEnabled()
     {
         gameIsActive = !gameIsActive;
+    }
+
+    public void MuteToggle()
+    {
+        isMuted = !isMuted;
+        if(isMuted)
+        {
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            AudioListener.volume = 1;
+        }
     }
 }
