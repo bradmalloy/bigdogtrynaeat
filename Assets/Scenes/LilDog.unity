@@ -6383,12 +6383,12 @@ MonoBehaviour:
   totalFoodSpawnFill: 0.7
   percentBadFood: 0.2
   goodFoodPrefabList:
-  - {fileID: 7662107598258033000, guid: 6596ae219cc10804aae8d83184503fd2, type: 3}
-  - {fileID: 8351085653501453451, guid: d9f5d23716eb8bc44af2b03dc0adc67e, type: 3}
-  - {fileID: 6864918583252039238, guid: 5698569c61f4c45418a7f6a1eb25a06f, type: 3}
+  - {fileID: 5355633894085560541, guid: 20c880c6c85a0f148a2b5dcc7f7b51a2, type: 3}
+  - {fileID: 2407675887848494364, guid: a8b4363e84692e649a3be7b3cb577697, type: 3}
+  - {fileID: 5839929912362888882, guid: 2509f7263b3b628489fabf8a48b4c886, type: 3}
   badFoodPrefabList:
-  - {fileID: 8697837703431176005, guid: 003583fff2ec88d4b80df932585d147c, type: 3}
-  - {fileID: 6246909166944788433, guid: b25d10948b0c8b5469153d057bddffa2, type: 3}
+  - {fileID: 8924933029117641442, guid: 7c992784171a9ca4d89d21d66ed75a62, type: 3}
+  - {fileID: 5408059053255520623, guid: 68aac9ff025a136488e837a32a96dc5d, type: 3}
   foodSpawnLocationsParent: {fileID: 1062048744}
   mainCameraRig: {fileID: 506208601}
   thePlayer: {fileID: 0}
