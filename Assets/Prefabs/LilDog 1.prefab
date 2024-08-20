@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fdc95d2be1162a428a1da861cca2b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 16
+  moveSpeed: 25
   rotationSpeed: 10
   jumpForce: 3
   score: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   badFoodSound: {fileID: 4487875706397915088}
   cameraTransform: {fileID: 0}
   scoreTargets: 03000000050000000a0000001900000028000000
-  acceleration: 20
+  acceleration: 30
   fallMultiplier: 3
   lowJumpMultiplier: 2
   jumpCooldownTime: 0.1
