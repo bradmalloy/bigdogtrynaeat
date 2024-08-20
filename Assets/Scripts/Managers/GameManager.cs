@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     // Activate this at the end of game
     [SerializeField] private GameObject endGameCameraSpot;
     [SerializeField] private AudioSource victoryMusic;
+    [SerializeField] private TextMeshPro finalScoreText;
 
     // This is serializable only for debug purposes, generated
     // at runtime.
@@ -166,6 +168,9 @@ public class GameManager : MonoBehaviour
 
     public void EndGame() {
         Debug.Log("EndGame has been called, moving to 2nd camera.");
+
+        finalScoreText.text = "Final Score: " + thePlayer.GetComponent<PlayerScript>().GetScore();
+        
         // Move the camera
         mainCameraRig.DisableCameraControl();
         Debug.Log("Camera rig enabled state: " + mainCameraRig.cameraIsEnabled);
