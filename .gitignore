@@ -83,3 +83,5 @@ Assets/Feel
 Assets/Modern UI Pack
 
 Build/
+BuildWeb/
+*.zip
