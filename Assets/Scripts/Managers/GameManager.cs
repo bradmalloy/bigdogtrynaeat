@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
 
     public void StartUp()
     {
-
         SetUpTimer(); // must happen before UI init, dog init
         // SpawnDog creates the Player instance, which
         // many other Managers need as a reference

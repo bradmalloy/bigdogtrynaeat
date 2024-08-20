@@ -2706,7 +2706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e28715f407df764d8e7beb0138e5d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiTree: {fileID: 1843716101}
+  pauseMenu: {fileID: 1843716101}
   startMenu: {fileID: 1996239492}
   timerText: {fileID: 1459363878}
   scoreText: {fileID: 569911906}
@@ -8503,7 +8503,7 @@ GameObject:
   - component: {fileID: 1843716104}
   - component: {fileID: 1843716103}
   m_Layer: 5
-  m_Name: Menu
+  m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

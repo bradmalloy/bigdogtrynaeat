@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public sealed class UiManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public sealed class UiManager : MonoBehaviour
     private GameManager gameManager;
 
     // Turn this on or off
-    [SerializeField] private GameObject uiTree;
+    [FormerlySerializedAs("uiTree")] [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject startMenu;
 
     // Text fields
@@ -35,12 +36,20 @@ public sealed class UiManager : MonoBehaviour
             Debug.LogError("Timer or manager wasn't provided, can't start UIManager");
         }
 
+        // Ensure we can't see the pause menu at the start
+        if (pauseMenu.activeInHierarchy)
+        {
+            pauseMenu.SetActive(false);
+        }
+        
+        // and that we _can_ see the start menu
+        startMenu.SetActive(true);
     }
 
     public void ToggleEnabled()
     {
         isEnabled = !isEnabled;
-        uiTree.SetActive(isEnabled);
+        pauseMenu.SetActive(isEnabled);
         if (isEnabled)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -64,7 +73,7 @@ public sealed class UiManager : MonoBehaviour
         {
             timerText.text = gameTimer.GetRemainingTime();
             scoreText.text = "Score: " + gameManager.GetPlayer().GetScore();
-            targetScoreText.text = "Next: " + gameManager.GetPlayer().GetNextScoreTarget();
+            targetScoreText.text = "Goal: " + gameManager.GetPlayer().GetNextScoreTarget();
         }
     }
 }

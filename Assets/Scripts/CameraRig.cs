@@ -17,6 +17,11 @@ public class CameraRig : MonoBehaviour
     
     void Update()
     {
+        if (player == null)
+        {
+            return;
+        }
+        
         // Get mouse input
         currentX += Input.GetAxis("Mouse X") * sensitivity;
         currentY -= Input.GetAxis("Mouse Y") * sensitivity;
@@ -27,6 +32,11 @@ public class CameraRig : MonoBehaviour
 
     void LateUpdate()
     {
+        if (player == null)
+        {
+            return;
+        }
+        
         // Calculate the new camera position
         Vector3 direction = new Vector3(0, 0, -distance);
         Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
